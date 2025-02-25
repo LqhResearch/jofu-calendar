@@ -1,6 +1,8 @@
 declare module '@jofu/calendar' {
-    export interface Props {}
+    import React from 'react';
 
-    const JofuCalendar: React.FC<Props>;
+    export interface JofuCalendarProps {}
+
+    const JofuCalendar: React.FC<JofuCalendarProps>;
     export default JofuCalendar;
 }

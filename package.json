@@ -1,13 +1,13 @@
 {
     "name": "@jofu/calendar",
-    "version": "0.0.0",
+    "version": "0.0.3",
     "description": "",
     "keywords": [
         "jofu",
         "calendar",
-        "datetimepicker",
         "datepicker",
-        "timepicker"
+        "timepicker",
+        "datetimepicker"
     ],
     "homepage": "https://github.com/LqhResearch/jofu-calendar#readme",
     "author": "LqhResearch <lqhung.max@gmail.com>",
@@ -29,7 +29,8 @@
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "files": [
-        "dist"
+        "dist",
+        "dist/jofu-calendar.css"
     ],
     "browserslist": [
         "defaults"
@@ -37,32 +38,31 @@
     "scripts": {
         "build": "tsup src/index.ts --format cjs,esm --dts --sourcemap && npm run tailwind",
         "dev": "tsup src/index.ts --format cjs,esm --dts --sourcemap --watch",
-        "pub": "npm run build && yalc publish && yalc push",
-        "tailwind": "npx tailwindcss -i ./src/style.css -o ./dist/jofu-calendar.css --minify",
+        "pub": "npm run build && npm publish --access public",
+        "tailwind": "npx @tailwindcss/cli -i ./src/style.css -o ./dist/jofu-calendar.css --minify",
         "format": "prettier --write .",
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build"
+        "storybook": "storybook dev -p 6006"
     },
     "peerDependencies": {
-        "react": "^18.0.0",
-        "react-dom": "^18.0.0",
+        "react": ">=17.0.0 <20.0.0",
+        "react-dom": ">=17.0.0 <20.0.0",
         "typescript": "^5.6.0"
     },
     "devDependencies": {
-        "@chromatic-com/storybook": "^3.2.3",
         "@storybook/addon-essentials": "^8.4.7",
         "@storybook/addon-interactions": "^8.4.7",
         "@storybook/blocks": "^8.4.7",
         "@storybook/react-vite": "^8.4.7",
         "@storybook/test": "^8.4.7",
-        "@tailwindcss/postcss": "^4.0.7",
+        "@tailwindcss/cli": "^4.0.8",
+        "@tailwindcss/postcss": "^4.0.8",
         "@types/react": "^18.0.0",
         "@types/react-dom": "^18.0.0",
         "autoprefixer": "^10.4.20",
         "postcss": "^8.5.3",
         "prettier-plugin-tailwindcss": "^0.6.9",
         "storybook": "^8.4.7",
-        "tailwindcss": "^4.0.7",
+        "tailwindcss": "^4.0.8",
         "tsup": "^8.3.5"
     },
     "sideEffects": false
