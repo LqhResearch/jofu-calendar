@@ -1,7 +1,7 @@
 {
     "name": "@jofu/calendar",
-    "version": "0.0.3",
-    "description": "",
+    "version": "0.0.4",
+    "description": "A lightweight and customizable React component for selecting dates. Built with Tailwind CSS, it offers a seamless user experience with modern UI design and easy integration.",
     "keywords": [
         "jofu",
         "calendar",
@@ -27,19 +27,30 @@
     },
     "main": "dist/index.js",
     "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
     "files": [
-        "dist",
-        "dist/jofu-calendar.css"
+        "dist/index.js",
+        "dist/index.mjs",
+        "dist/index.d.ts",
+        "dist/jofu-calendar.min.css"
     ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        },
+        "./style": {
+            "import": "./dist/jofu-calendar.min.css"
+        }
+    },
     "browserslist": [
         "defaults"
     ],
     "scripts": {
-        "build": "tsup src/index.ts --format cjs,esm --dts --sourcemap && npm run tailwind",
-        "dev": "tsup src/index.ts --format cjs,esm --dts --sourcemap --watch",
+        "build": "tsup src/index.ts --format cjs,esm --dts --minify && npm run tailwind",
+        "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
         "pub": "npm run build && npm publish --access public",
-        "tailwind": "npx @tailwindcss/cli -i ./src/style.css -o ./dist/jofu-calendar.css --minify",
+        "tailwind": "npx @tailwindcss/cli -i ./src/style.css -o ./dist/jofu-calendar.min.css --minify",
         "format": "prettier --write .",
         "storybook": "storybook dev -p 6006"
     },

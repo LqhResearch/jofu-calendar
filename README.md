@@ -25,7 +25,7 @@ Here’s an example of how to use `JofuCalendar` in a React project:
 ```tsx
 import React from 'react';
 import JofuCalendar from '@jofu/calendar';
-import '@jofu/calendar/dist/jofu-calendar.css';
+import '@jofu/calendar/style';
 
 const App: React.FC = () => {
     return (
