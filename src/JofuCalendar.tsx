@@ -1,14 +1,27 @@
+import React from 'react';
+import { defaultConfig } from './config/default';
+import { CalendarHeader } from './components/CalendarHeader';
+import { Config } from './all.interface';
+import { CalendarTable } from './components/CalendarTable';
 import './style.css';
 
-export interface JofuCalendarProps {}
+export interface Props {
+    year?: number;
+    month?: number;
+    config?: Config;
+}
 
-export const JofuCalendar: React.FC<JofuCalendarProps> = ({}) => {
+export const JofuCalendar: React.FC<Props> = ({ year, month, config }) => {
+    const today = new Date();
+    const currentMonth = month ?? today.getMonth() + 1;
+    const currentYear = year ?? today.getFullYear();
+
+    const userConfig: Config = { ...defaultConfig, ...config };
+
     return (
-        <div className="relative w-64">
-            <input
-                type="date"
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm transition duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none sm:text-sm"
-            />
+        <div className="bg-white">
+            <CalendarHeader month={currentMonth} year={currentYear} config={userConfig} />
+            <CalendarTable month={currentMonth} year={currentYear} config={userConfig} />
         </div>
     );
 };

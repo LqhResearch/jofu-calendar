@@ -2,7 +2,7 @@
 
 ## Introduction
 
-`@jofu/calendar` is a lightweight and customizable React component for selecting dates. Built with Tailwind CSS, it offers a seamless user experience with modern UI design and easy integration.
+`@jofu/calendar` is a flexible React library for displaying monthly calendars
 
 ## Installation
 
@@ -28,13 +28,10 @@ import JofuCalendar from '@jofu/calendar';
 import '@jofu/calendar/style';
 
 const App: React.FC = () => {
-    return (
-        <div className="p-4">
-            <h1 className="mb-4 text-xl font-bold">Select a Date</h1>
-            <JofuCalendar />
-        </div>
-    );
+    return <JofuCalendar />;
 };
 
 export default App;
 ```
+
+![@jofu/calendar](./ui/calendar.png)

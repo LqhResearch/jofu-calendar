@@ -1,13 +1,10 @@
 {
     "name": "@jofu/calendar",
-    "version": "0.0.4",
-    "description": "A lightweight and customizable React component for selecting dates. Built with Tailwind CSS, it offers a seamless user experience with modern UI design and easy integration.",
+    "version": "0.0.5",
+    "description": "A flexible React library for displaying monthly calendars",
     "keywords": [
         "jofu",
-        "calendar",
-        "datepicker",
-        "timepicker",
-        "datetimepicker"
+        "calendar"
     ],
     "homepage": "https://github.com/LqhResearch/jofu-calendar#readme",
     "author": "LqhResearch <lqhung.max@gmail.com>",

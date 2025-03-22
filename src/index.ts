@@ -1,4 +1,4 @@
 import JofuCalendar from './JofuCalendar';
 
 export default JofuCalendar;
-export type { JofuCalendarProps } from './JofuCalendar';
+export type { Props } from './JofuCalendar';

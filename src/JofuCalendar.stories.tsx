@@ -5,4 +5,4 @@ export default {
     component: JofuCalendar,
 };
 
-export const Default = () => <JofuCalendar />;
+export const Default = () => <JofuCalendar config={{ weekStart: 1, language: 'vi' }} />;
