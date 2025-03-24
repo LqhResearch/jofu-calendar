@@ -1,36 +1,67 @@
-import React from 'react';
-import { defaultConfig, weekdays } from '../config/default';
-import { Config } from '../all.interface';
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import { CSSProperties } from 'react';
 
 interface Props {
+    startDay: 'Mon' | 'Sun';
+    weekdays: string[];
+    headerStyle?: CSSProperties;
     year: number;
     month: number;
-    config: Config;
+    onChange: (month: number, year: number) => void;
+    renderHeaderItem?: (day: string) => JSX.Element;
 }
 
-export const CalendarHeader: React.FC<Props> = ({ year, month, config }) => {
-    const { language, weekStart } = { ...defaultConfig, ...config };
+export default function CalendarHeader({
+    startDay,
+    weekdays,
+    headerStyle,
+    year,
+    month,
+    onChange,
+    renderHeaderItem,
+}: Props) {
+    const startIndex = weekdays.findIndex((day) => day.startsWith(startDay));
+    const sortedWeekDays = [...weekdays.slice(startIndex), ...weekdays.slice(0, startIndex)];
 
-    let weekday = [...weekdays[language || 'en']];
-    weekday = [...weekday.slice(weekStart), ...weekday.slice(0, weekStart)];
+    const handlePrevMonth = () => {
+        const newMonth = month === 1 ? 12 : month - 1;
+        const newYear = month === 1 ? year - 1 : year;
+        onChange(newMonth, newYear);
+    };
+
+    const handleNextMonth = () => {
+        const newMonth = month === 12 ? 1 : month + 1;
+        const newYear = month === 12 ? year + 1 : year;
+        onChange(newMonth, newYear);
+    };
 
     return (
-        <div className="text-center font-semibold">
-            <div className="p-3 text-center text-xl">
-                Tháng {month} / {year}
+        <div>
+            <div className="mb-3 flex items-center justify-between text-lg">
+                <button
+                    onClick={handlePrevMonth}
+                    className="rounded p-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                    <HiChevronLeft size={20} />
+                </button>
+                <div className="font-semibold">
+                    Month {month}/{year}
+                </div>
+                <button
+                    onClick={handleNextMonth}
+                    className="rounded p-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                    <HiChevronRight size={20} />
+                </button>
             </div>
 
-            <div className="grid border-collapse grid-cols-7 text-gray-600">
-                {weekday.map((day) => (
-                    <div key={day} className="p-0.5">
-                        <div
-                            className={`flex cursor-pointer items-center justify-center rounded-sm bg-[#1677ff] p-3 text-white`}
-                        >
-                            {day}
-                        </div>
+            <div className="grid grid-cols-7 bg-sky-500 text-white" style={headerStyle}>
+                {sortedWeekDays.map((day, index) => (
+                    <div key={index} className="p-1 text-center font-semibold">
+                        {renderHeaderItem ? renderHeaderItem(day) : day}
                     </div>
                 ))}
             </div>
         </div>
     );
-};
+}

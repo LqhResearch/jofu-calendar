@@ -1,6 +1,6 @@
 {
     "name": "@jofu/calendar",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "A flexible React library for displaying monthly calendars",
     "keywords": [
         "jofu",
@@ -73,5 +73,8 @@
         "tailwindcss": "^4.0.8",
         "tsup": "^8.3.5"
     },
-    "sideEffects": false
+    "sideEffects": false,
+    "dependencies": {
+        "react-icons": "^5.5.0"
+    }
 }

@@ -4,6 +4,8 @@
 
 `@jofu/calendar` is a flexible React library for displaying monthly calendars
 
+![@jofu/calendar](./ui/advanced-calendar-usage.png)
+
 ## Installation
 
 Install the package using npm or yarn:
@@ -34,4 +36,4 @@ const App: React.FC = () => {
 export default App;
 ```
 
-![@jofu/calendar](./ui/calendar.png)
+[See more examples](./examples/)

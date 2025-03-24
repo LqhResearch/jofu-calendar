@@ -1,39 +1,62 @@
-import React from 'react';
-import { defaultConfig } from '../config/default';
-import { Config } from '../all.interface';
-import { CalendarCell } from './CalendarCell';
+import { useMemo } from 'react';
+import CalendarCell from './CalendarCell';
 
 interface Props {
+    startDay?: 'Mon' | 'Sun';
     year: number;
     month: number;
-    config: Config;
+    contentCells?: Map<Date, () => JSX.Element>;
 }
 
-export const CalendarTable: React.FC<Props> = ({ year, month, config }) => {
-    const { weekStart = 0 } = { ...defaultConfig, ...config };
-
+export default function CalendarTable({ startDay, year, month, contentCells = new Map() }: Props) {
     const daysInMonth = new Date(year, month, 0).getDate();
-    const daysInPrev = new Date(year, month - 1, 0).getDate();
-    const firstDay = (new Date(year, month - 1, 1).getDay() - weekStart + 7) % 7;
-    const totalDays = firstDay + daysInMonth;
-    const rows = Math.ceil(totalDays / 7);
+    const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
+    const prevMonthDays = new Date(year, month - 1, 0).getDate();
 
-    const dates = Array.from({ length: rows * 7 }, (_, i) => {
-        const day = i - firstDay + 1;
-        const m = day <= 0 ? month - 1 : day > daysInMonth ? month + 1 : month;
-        const y = m === 0 ? year - 1 : m === 13 ? year + 1 : year;
-        const d = day <= 0 ? daysInPrev + day : day > daysInMonth ? day - daysInMonth : day;
+    const emptyCells =
+        startDay === 'Mon' ? (firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1) : firstDayOfMonth;
+    const totalCells = 42;
+    const nextMonthDays = totalCells - (emptyCells + daysInMonth);
 
-        return new Date(y, m - 1, d);
-    });
+    const calendarDays = useMemo(() => {
+        const days: Date[] = [];
+
+        for (let i = emptyCells; i > 0; i--) {
+            days.push(new Date(year, month - 2, prevMonthDays - i + 1));
+        }
+
+        for (let i = 1; i <= daysInMonth; i++) {
+            days.push(new Date(year, month - 1, i));
+        }
+
+        for (let i = 1; i <= nextMonthDays; i++) {
+            days.push(new Date(year, month, i));
+        }
+
+        return days;
+    }, [emptyCells, daysInMonth, prevMonthDays, nextMonthDays, month, year]);
 
     return (
-        <div className="text-center font-semibold">
-            <div className="grid grid-cols-7 text-gray-600">
-                {dates.map((date, i) => (
-                    <CalendarCell key={i} date={date} currentMonth={month} config={config} />
-                ))}
-            </div>
+        <div className="grid grid-cols-7 border border-[#e5e7eb]">
+            {calendarDays.map((date, index) => {
+                const renderCell = Array.from(contentCells.keys()).find(
+                    (d) =>
+                        d.getFullYear() === date.getFullYear() &&
+                        d.getMonth() === date.getMonth() &&
+                        d.getDate() === date.getDate(),
+                );
+
+                const cellContent = renderCell ? contentCells.get(renderCell) : undefined;
+
+                return (
+                    <CalendarCell
+                        key={index}
+                        date={date}
+                        currentMonth={month}
+                        cellContent={cellContent}
+                    />
+                );
+            })}
         </div>
     );
-};
+}
