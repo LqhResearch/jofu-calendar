@@ -122,4 +122,4 @@ export default App;
     - The **key** is a `Date` object representing the event day.
     - The **value** is a function returning JSX, defining the event UI.
 
-![@jofu/calendar](./ui/advanced-calendar-usage.png)
+![@jofu/calendar](../ui/advanced-calendar-usage.png)
